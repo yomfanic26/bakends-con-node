@@ -8,7 +8,7 @@ var corsOptions = {
     optionsSuccessStatus: 200 ,// For legacy browser support
     methods:'*'
 }
-app.use(cors(corsOptions));  // Agrega esta líneanode
+app.use(cors());  // Agrega esta líneanode
 
 
 app.use(bodyParser.json());

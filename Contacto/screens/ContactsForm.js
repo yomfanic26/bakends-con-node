@@ -8,7 +8,6 @@ export const ContactsForm = ({ navigation, route }) => {
   const [surname, setSurname] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
 
-console.log(route.params.contactParam)
 
   const showMessage = () => {
     Alert.alert("CONFIRMACION", "Se creo el Contacto");

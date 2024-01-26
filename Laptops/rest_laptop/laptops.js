@@ -24,7 +24,7 @@ export const saveLaptopRest = (laptop, fnShowMessage) => {
     }),
   };
 
-  fetch(URL + "laptops", confg)
+  fetch(URL + "laptos", confg)
     .then((response) => {
       return response.json();
     })

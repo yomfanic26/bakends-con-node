@@ -1,24 +1,49 @@
 import { View, Text, StyleSheet, Alert } from "react-native";
 import { Input } from "@rneui/base";
 import { useState } from "react";
-import { saveLaptopRest } from "../rest_laptop/laptops";
+import { saveLaptopRest,updateLaptopRest } from "../rest_laptop/laptops";
 import { Button, Icon } from "@rneui/themed";
 
-export const LaptopsForm = ({ navigation }) => {
-  const [brand, setBrand] = useState();
-  const [processor, setProcessor] = useState();
-  const [memory, setMemory] = useState();
-  const [disk, setDisk] = useState();
+export const LaptopsForm = ({ navigation,route }) => {
+  let laptoptRetrieved = route.params.lapotpParam
+  let isNew = true;
+
+  if (laptoptRetrieved != null) {
+    isNew = false;
+  }
+  if (!isNew) {
+
+  }
+
+  const [brand, setBrand] = useState(isNew?null:laptoptRetrieved.marca);
+  const [processor, setProcessor] = useState(isNew?null:laptoptRetrieved.procesador);
+  const [memory, setMemory] = useState(isNew?null:laptoptRetrieved.memoria);
+  const [disk, setDisk] = useState(isNew?null:laptoptRetrieved.disco);
 
   const showMessage = () => {
-    Alert.alert("CONFIRMATION", "Laptop added successfully");
+    Alert.alert("CONFIRMATION",isNew? "Laptop added successfully":"Se actualizo la laptop");
+    navigation.goBack();
   };
 
   const saveLaptops = () => {
     console.log("Saving Laptop");
-    navigation.goBack();
     saveLaptopRest(
       {
+        brand: brand,
+        processor: processor,
+        memory: memory,
+        disk: disk,
+      },
+      showMessage
+    );
+  };
+
+  
+  const updateLaptops = () => {
+    console.log("Update Laptop");
+    updateLaptopRest(
+      {
+        id:laptoptRetrieved.id,
         brand: brand,
         processor: processor,
         memory: memory,
@@ -58,7 +83,7 @@ export const LaptopsForm = ({ navigation }) => {
           setDisk(value);
         }}
       />
-      <Button onPress={saveLaptops} radius={"sm"}>
+      <Button onPress={isNew?saveLaptops:updateLaptops} radius={"sm"}>
         GUARDAR
         <Icon name="save" color="white" />
       </Button>

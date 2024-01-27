@@ -33,3 +33,26 @@ export const saveLaptopRest = (laptop, fnShowMessage) => {
       console.log({ body });
     });
 };
+
+export const updateLaptopRest = (laptop, fnShowMessage) => {
+  const confg = {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id:laptop.id,
+      marca: laptop.brand,
+      procesador: laptop.processor,
+      memoria: laptop.memory,
+      disco: laptop.disk,
+    }),
+  };
+
+  fetch(URL + "laptos/"+laptop.id, confg)
+    .then((response) => {
+      return response.json();
+    })
+    .then((body) => {
+      fnShowMessage();
+      console.log({ body });
+    });
+};

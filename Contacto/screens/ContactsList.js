@@ -14,9 +14,10 @@ export const ContactsList = ({ navigation }) => {
 
   const ContactItem = ({ contact }) => {
     return (
+      //Permite que la lista sea clicliable
       <TouchableHighlight
         onPress={() => {
-          navigation.navigate("ContactsFormNav",{contactParam:contact});
+          navigation.navigate("ContactsFormNav", { contactParam: contact });
         }}
       >
         <ListItem>
@@ -48,14 +49,14 @@ export const ContactsList = ({ navigation }) => {
         renderItem={({ item }) => {
           return <ContactItem contact={item} />;
         }}
-        keyExtractor={(item)=>{
+        keyExtractor={(item) => {
           return item.id
         }}
       />
       <FAB
         title="+"
         onPress={() => {
-          navigation.navigate("ContactsFormNav");
+          navigation.navigate("ContactsFormNav", {});
         }}
       />
     </View>

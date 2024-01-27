@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, FlatList } from "react-native";
-import { Button, ListItem, Avatar ,FAB  } from "@rneui/base";
+import { View, Text, StyleSheet, FlatList, TouchableHighlight } from "react-native";
+import { Button, ListItem, Avatar, FAB } from "@rneui/base";
 import { getAllLaptops } from "../rest_laptop/laptops";
 import { useState } from "react";
 
@@ -8,22 +8,28 @@ export const LaptopsList = ({ navigation }) => {
 
   const LaptopItem = ({ laptop }) => {
     return (
-      <ListItem >
-        <Avatar
+      <TouchableHighlight
+        onPress={() => {
+          navigation.navigate("LaptopsFormNav", { lapotpParam: laptop });
+        }}
+      >
+        <ListItem >
+          <Avatar
             title={laptop.marca.substring(0, 1)}
             containerStyle={{ backgroundColor: "#6755b9" }}
             rounded
           />
-        <ListItem.Content>
-          <ListItem.Title style={styles.titulo}>
-            {laptop.marca} {laptop.procesador}{" "}
-          </ListItem.Title>
-          <ListItem.Subtitle style={styles.subtitulo}>
-            RAM: {laptop.memoria} DISCO: {laptop.disco}
-          </ListItem.Subtitle>
-        </ListItem.Content>
-        <ListItem.Chevron  style={styles.Chevron}/>
-      </ListItem>
+          <ListItem.Content>
+            <ListItem.Title style={styles.titulo}>
+              {laptop.marca} {laptop.procesador}{" "}
+            </ListItem.Title>
+            <ListItem.Subtitle style={styles.subtitulo}>
+              RAM: {laptop.memoria} DISCO: {laptop.disco}
+            </ListItem.Subtitle>
+          </ListItem.Content>
+          <ListItem.Chevron style={styles.Chevron} />
+        </ListItem>
+      </TouchableHighlight>
     );
   };
 
@@ -63,12 +69,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     flexDirection: "column",
     alignItems: "stretch",
-    justifyContent: "flex-start", 
-  },titulo:{
-    fontWeight: "bold" 
-  },subtitulo:{
+    justifyContent: "flex-start",
+  }, titulo: {
+    fontWeight: "bold"
+  }, subtitulo: {
     color: 'purple', fontStyle: "italic"
-  },Chevron:{
+  }, Chevron: {
     backgroundColor: "purple"
   }
 });

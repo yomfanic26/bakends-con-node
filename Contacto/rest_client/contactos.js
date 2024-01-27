@@ -32,3 +32,25 @@ export const saveContactRest = (contact, fnShowMessage) => {
       console.log({ body });
     });
 };
+
+export const updateContactRest = (contact, fnShowMessage) => {
+  const confg = {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id:contact.id,
+      nombre: contact.name,
+      apellido: contact.surname,
+      celular: contact.phoneNumber,
+    }),
+  };
+
+  fetch(URL + "contactos/"+contact.id, confg)
+    .then((response) => {
+      return response.json();
+    })
+    .then((body) => {
+      fnShowMessage();
+      console.log({ body });
+    });
+};

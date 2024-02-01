@@ -1,5 +1,5 @@
 const IP = "192.168.100.8";
-const PUERTO = "3001";
+const PUERTO = "3003";
 const URL = "http://" + IP + ":" + PUERTO + "/";
 
 export const getAllContacts = (fnRefreshList) => {
@@ -28,7 +28,7 @@ export const saveContactRest = (contact, fnShowMessage) => {
       return response.json();
     })
     .then((body) => {
-      fnShowMessage();
+      fnShowMessage("Se ha crado el contacto");
       console.log({ body });
     });
 };
@@ -44,13 +44,27 @@ export const updateContactRest = (contact, fnShowMessage) => {
       celular: contact.phoneNumber,
     }),
   };
+  fetch(URL + "contactos/"+contact.id, confg)
+    .then((response) => {
+      return response.json();
+    })
+    .then((body) => {
+      fnShowMessage("Se actualizo contacto");
+      console.log({ body });
+    });
+};
+  export const deleteContactRest = (contact, fnShowMessage) => {
+    const confg = {
+      method: "DELETE",
+        };
+  
 
   fetch(URL + "contactos/"+contact.id, confg)
     .then((response) => {
       return response.json();
     })
     .then((body) => {
-      fnShowMessage();
+      fnShowMessage("Contacto eliminado");
       console.log({ body });
     });
 };

@@ -53,7 +53,7 @@ app.put("/laptos/:idParam", (req, resp) => {
 app.delete("/laptos/:idParam", (req, resp) => {
     const id = req.params.idParam;
     console.log("id:", id);
-    resp.send()
+    resp.send({id:id})
 })
 //ñevant aun servidor web en mi computador local y recibe dos parametros
 app.listen(puerto, () => {

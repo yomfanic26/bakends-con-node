@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Alert } from "react-native";
 import { Input } from "@rneui/base";
 import { useState } from "react";
-import { saveLaptopRest,updateLaptopRest } from "../rest_laptop/laptops";
+import { saveLaptopRest,updateLaptopRest,deleteLaptoptRest } from "../rest_laptop/laptops";
 import { Button, Icon } from "@rneui/themed";
 
 export const LaptopsForm = ({ navigation,route }) => {
@@ -20,8 +20,8 @@ export const LaptopsForm = ({ navigation,route }) => {
   const [memory, setMemory] = useState(isNew?null:laptoptRetrieved.memoria);
   const [disk, setDisk] = useState(isNew?null:laptoptRetrieved.disco);
 
-  const showMessage = () => {
-    Alert.alert("CONFIRMATION",isNew? "Laptop added successfully":"Se actualizo la laptop");
+  const showMessage = (message) => {
+    Alert.alert("CONFIRMATION",message);
     navigation.goBack();
   };
 
@@ -53,6 +53,28 @@ export const LaptopsForm = ({ navigation,route }) => {
     );
   };
 
+  const confirmDelete = () => {
+    Alert.alert(
+      "CONFIRMACION",
+      "¿Está seguro de que desea eliminar?",
+      [
+        {
+          text: "SI",
+          onPress: deleteLaptop 
+        },
+        {
+          text: "CANCELAR"
+        },
+      ]
+    );
+  };
+  
+  const deleteLaptop =()=>{
+    deleteLaptoptRest({
+      id:laptoptRetrieved.id
+    },showMessage)
+    }
+
   return (
     <View style={styles.container}>
       <Input
@@ -83,6 +105,10 @@ export const LaptopsForm = ({ navigation,route }) => {
           setDisk(value);
         }}
       />
+       {
+        isNew ? <View></View> : <Button title="ELIMINAR" onPress={confirmDelete} />
+
+      }
       <Button onPress={isNew?saveLaptops:updateLaptops} radius={"sm"}>
         GUARDAR
         <Icon name="save" color="white" />

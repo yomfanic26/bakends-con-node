@@ -7,10 +7,14 @@ import {
 } from "react-native";
 import { Button, ListItem, FAB } from "@rneui/base";
 import { getAllContacts } from "../rest_client/contactos";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 export const ContactsList = ({ navigation }) => {
   const [contactList, setContactsList] = useState([]);
+  useEffect(()=>{
+    getAllContacts(fnRefreshList);
+
+  },[]);
 
   const ContactItem = ({ contact }) => {
     return (
@@ -38,12 +42,7 @@ export const ContactsList = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>LISTA DE CONTACTOS</Text>
-      <Button
-        title="Consultar"
-        onPress={() => {
-          getAllContacts(fnRefreshList);
-        }}
-      />
+      
       <FlatList
         data={contactList}
         renderItem={({ item }) => {

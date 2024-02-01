@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const puerto = 3001;
+const puerto = 3003;
 const bodyParser = require("body-parser");
 var corsOptions = {
     origin: '*',
@@ -45,7 +45,7 @@ app.put("/contactos/:idParam",(req, resp) => {
 app.delete("/contactos/:idParam", (req, resp) => {
     const id=req.params.idParam;
     console.log("id:",id);
-    resp.send()
+    resp.send({id:id})
 })
 //ñevant aun servidor web en mi computador local y recibe dos parametros
 app.listen(puerto, () => {
